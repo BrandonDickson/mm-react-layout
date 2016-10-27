@@ -1,0 +1,28 @@
+{
+  "name": "mm-react-layout",
+  "version": "1.0.0",
+  "description": "A simple flexbox layout library for React.",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "React",
+    "FlexBox",
+    "Layout"
+  ],
+  "author": "BrandonDickson",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^15.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.0",
+    "babel-loader": "^6.2.7",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "webpack": "^1.13.3"
+  }
+}
