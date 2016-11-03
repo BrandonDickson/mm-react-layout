@@ -73,11 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _flexBoxItem2 = _interopRequireDefault(_flexBoxItem);
 	
-	var _layout = __webpack_require__(37);
-	
-	var _layout2 = _interopRequireDefault(_layout);
-	
-	var _margin = __webpack_require__(39);
+	var _margin = __webpack_require__(37);
 	
 	var _margin2 = _interopRequireDefault(_margin);
 	
@@ -85,12 +81,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _padding2 = _interopRequireDefault(_padding);
 	
+	var _layout = __webpack_require__(39);
+	
+	var _layout2 = _interopRequireDefault(_layout);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mergeHOC = function mergeHOC(component, hocs) {
-	  for (var hoc in hocs) {
-	    component = hoc(component);
-	  }return component;
+	var mergeHOC = function mergeHOC(component) {
+	  for (var _len = arguments.length, hocs = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	    hocs[_key - 1] = arguments[_key];
+	  }
+	
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+	
+	  try {
+	    for (var _iterator = hocs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var hoc = _step.value;
+	
+	      if (typeof hoc !== 'function') throw new Error(hoc + ' is not a function!');else component = hoc(component);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+	
+	  return component;
 	};
 	
 	var FlexBox = mergeHOC((0, _createWrapperComponent2.default)('FlexBox'), _margin2.default, _padding2.default, _flexBox2.default);
@@ -4368,7 +4395,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      style: _extends({}, style, direction && _extends({
 	        display: 'flex',
 	        flexDirection: direction
-	      }, justify && { justifyContent: justify }, align && { alignContent: align }))
+	      }, justify && { justifyContent: justify }, align && { alignItems: align }))
 	    }, rest));
 	  };
 	
@@ -4409,11 +4436,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  'flex': { flex: '1' }
 	};
 	
+	var _React$PropTypes = _react2.default.PropTypes,
+	    oneOf = _React$PropTypes.oneOf,
+	    oneOfType = _React$PropTypes.oneOfType,
+	    number = _React$PropTypes.number,
+	    string = _React$PropTypes.string;
+	
+	
 	var propTypes = {
-	  alignSelf: _react2.default.PropTypes.oneOf(alignTypes),
-	  flex: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.oneOf(Object.keys(lookup)), _react2.default.PropTypes.number]),
-	  order: _react2.default.PropTypes.number,
-	  offset: _react2.default.PropTypes.number
+	  alignSelf: oneOf(alignTypes),
+	  flex: oneOfType([oneOf(Object.keys(lookup)), number]),
+	  order: oneOfType([number, string]),
+	  offset: oneOfType([number, string])
 	};
 	
 	exports.default = function (component) {
@@ -4449,36 +4483,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _padding = __webpack_require__(38);
-	
-	var _padding2 = _interopRequireDefault(_padding);
-	
-	var _margin = __webpack_require__(39);
-	
-	var _margin2 = _interopRequireDefault(_margin);
-	
-	var _flexBox = __webpack_require__(35);
-	
-	var _flexBox2 = _interopRequireDefault(_flexBox);
-	
-	var _flexBoxItem = __webpack_require__(36);
-	
-	var _flexBoxItem2 = _interopRequireDefault(_flexBoxItem);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	var lookup = {
+	  'small': 8,
+	  'medium': 16,
+	  'large': 32
+	};
+	
+	var propTypes = {
+	  margin: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.oneOf(Object.keys(lookup)), _react2.default.PropTypes.number])
+	};
 	
 	exports.default = function (component) {
 	
-	  component = (0, _padding2.default)(component);
-	  component = (0, _margin2.default)(component);
-	  component = (0, _flexBox2.default)(component);
-	  component = (0, _flexBoxItem2.default)(component);
+	  var MarginWrapper = function MarginWrapper(_ref) {
+	    var margin = _ref.margin,
+	        style = _ref.style,
+	        rest = _objectWithoutProperties(_ref, ['margin', 'style']);
 	
-	  return component;
+	    return _react2.default.createElement(component, _extends({
+	      style: _extends({}, style, margin && {
+	        margin: lookup[margin] || margin
+	      })
+	    }, rest));
+	  };
+	
+	  return Object.assign(MarginWrapper, { propTypes: propTypes });
 	};
 
 /***/ },
@@ -4538,41 +4577,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _padding = __webpack_require__(38);
+	
+	var _padding2 = _interopRequireDefault(_padding);
+	
+	var _margin = __webpack_require__(37);
+	
+	var _margin2 = _interopRequireDefault(_margin);
+	
+	var _flexBox = __webpack_require__(35);
+	
+	var _flexBox2 = _interopRequireDefault(_flexBox);
+	
+	var _flexBoxItem = __webpack_require__(36);
+	
+	var _flexBoxItem2 = _interopRequireDefault(_flexBoxItem);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	var lookup = {
-	  'small': 8,
-	  'medium': 16,
-	  'large': 32
-	};
-	
-	var propTypes = {
-	  margin: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.oneOf(Object.keys(lookup)), _react2.default.PropTypes.number])
-	};
 	
 	exports.default = function (component) {
 	
-	  var MarginWrapper = function MarginWrapper(_ref) {
-	    var margin = _ref.margin,
-	        style = _ref.style,
-	        rest = _objectWithoutProperties(_ref, ['margin', 'style']);
+	  component = (0, _padding2.default)(component);
+	  component = (0, _margin2.default)(component);
+	  component = (0, _flexBox2.default)(component);
+	  component = (0, _flexBoxItem2.default)(component);
 	
-	    return _react2.default.createElement(component, _extends({
-	      style: _extends({}, style, margin && {
-	        margin: lookup[margin] || !isNan(margin) && margin
-	      })
-	    }, rest));
-	  };
-	
-	  return Object.assign(MarginWrapper, { propTypes: propTypes });
+	  return component;
 	};
 
 /***/ }

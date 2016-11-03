@@ -21,8 +21,7 @@ export default component => {
         ...style,
         ...(
           margin && {
-            margin: lookup[margin] ||
-              !isNan(margin) && margin
+            margin: lookup[margin] || margin
           }
         )
       },

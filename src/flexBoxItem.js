@@ -21,14 +21,13 @@ const lookup = {
   'flex'    : { flex: '1' }
 }
 
+const { oneOf, oneOfType, number, string } = React.PropTypes
+
 const propTypes = {
-  alignSelf: React.PropTypes.oneOf(alignTypes),
-  flex: React.PropTypes.oneOfType([
-    React.PropTypes.oneOf(Object.keys(lookup)),
-    React.PropTypes.number
-  ]),
-  order: React.PropTypes.number,
-  offset: React.PropTypes.number
+  alignSelf: oneOf(alignTypes),
+  flex: oneOfType([oneOf(Object.keys(lookup)), number]),
+  order: oneOfType([number, string]),
+  offset: oneOfType([number, string])
 }
 
 export default component => {

@@ -31,7 +31,7 @@ export default component => {
             display: 'flex',
             flexDirection: direction,
             ...(justify && { justifyContent: justify }),
-            ...(align && { alignContent: align })
+            ...(align && { alignItems: align })
           }
         )
       },

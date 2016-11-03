@@ -1,13 +1,16 @@
 import createWrapperComponent from './createWrapperComponent'
 import flexBox from './flexBox'
 import flexBoxItem from './flexBoxItem'
-import layout from './layout'
 import margin from './margin'
 import padding from './padding'
+import layout from './layout'
 
-const mergeHOC = (component, hocs) => {
-  for(const hoc in hocs)
-    component = hoc(component)
+const mergeHOC = (component, ...hocs) => {
+  for(const hoc of hocs)
+    if (typeof hoc !== 'function')
+      throw new Error(`${ hoc } is not a function!`)
+    else
+      component = hoc(component)
   return component
 }
 
